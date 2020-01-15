@@ -10,7 +10,11 @@ namespace Exam
     {
         static void Main(string[] args)
         {
-
+            var menu = new Menu();
+            while (true)
+            {
+                menu.Action();
+            }
         }
 
     }

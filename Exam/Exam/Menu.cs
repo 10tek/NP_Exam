@@ -45,7 +45,43 @@ namespace Exam
 
         public async Task Get()
         {
+            Clear();
+            var s = await requestService.GetAsync();
 
+            var header = s.Substring(s.IndexOf("[header]"), s.LastIndexOf("[/header]"));
+            var headerText = header.Substring(header.IndexOf("h"), header.IndexOf("[/h]"));
+            var data = s.Substring(s.IndexOf("[data]"), s.LastIndexOf("[/data]"));
+            var userList = new List<User>();
+            for(var i = 0; i < data.Length; i++)
+            {
+                var textD = s.Substring(s.IndexOf("[d]"), s.IndexOf("[/d]"));
+                var tmpLogin = textD.Substring(0, textD.IndexOf("|"));
+                var tmpName = textD.Substring(0, textD.IndexOf("[/d]"));
+                userList.Add(new User
+                {
+                    Login = tmpLogin,
+                    Name = tmpName
+                });
+            }
+            WriteLine("------------------------------");
+            WriteLine($"|{headerText}");
+            SetCursorPosition(30,1);
+            Write("|");
+            SetCursorPosition(0, 2);
+            WriteLine("------------------------------");
+            WriteLine("|Логин        |           Имя|");
+            WriteLine("------------------------------");
+            var cursorY = 5;
+            foreach(var user in userList)
+            {
+                Write($"|{user.Login} ");
+                SetCursorPosition(15, cursorY);
+                Write("|");
+                Write($"{user.Name}");
+                SetCursorPosition(30, cursorY++);
+                WriteLine("|");
+            }
+            WriteLine("------------------------------");
         }
 
         private async Task Add()

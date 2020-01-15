@@ -11,10 +11,10 @@ namespace Exam
 {
     public class RequestService<T>
     {
-        private const string GET_URL = "http://localhost/user/getall";
-        private const string ADD_URL = "http://localhost/user/add";
-        private const string UPDATE_URL = "http://localhost/user/update";
-        private const string REMOVE_URL = "http://localhost/user/remove";
+        private const string GET_URL = "http://10.2.5.64/user/getall/";
+        private const string ADD_URL = "http://10.2.5.64/user/add/";
+        private const string UPDATE_URL = "http://10.2.5.64/user/update/";
+        private const string REMOVE_URL = "http://10.2.5.64/user/remove/";
         private const string DATA_TYPE = "/user/";
 
         //public async Task<List<User>> GetAsync()
@@ -58,6 +58,7 @@ namespace Exam
             var data = new StringContent(json, Encoding.UTF8, "application/json");
             using var client = new HttpClient();
             var response = await client.PostAsync(UPDATE_URL, data); 
+            
             switch (response.StatusCode)
             {
                 case HttpStatusCode.OK:
